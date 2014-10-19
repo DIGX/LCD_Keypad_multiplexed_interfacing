@@ -56,7 +56,7 @@ void main(void)
     //loop forever
     while(1)
     {
-        // Uncomment the below line if you want to use Keypad WITHOUT_ISR
+        // Use the below line if you want to use Keypad WITHOUT_ISR
         Key = Keypad_ALTwaitForKey();    // Waits until a key is pressed
         // Uncomment this instead of above function if you don't want to wait
 //        Key = Keypad_ALTgetKey();    // It gets the Key or return 0
