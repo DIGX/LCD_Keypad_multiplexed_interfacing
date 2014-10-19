@@ -57,9 +57,9 @@ void main(void)
     while(1)
     {
         // Uncomment the below line if you want to use Keypad WITHOUT_ISR
-//        Key = Keypad_waitForKey();    // Waits until a key is pressed
+        Key = Keypad_ALTwaitForKey();    // Waits until a key is pressed
         // Uncomment this instead of above function if you don't want to wait
-        Key = Keypad_ALTgetKey();    // It gets the Key or return 0
+//        Key = Keypad_ALTgetKey();    // It gets the Key or return 0
         
         if(Key)                     // Key is automatically updated in the ISR if Enabled
         {
