@@ -173,19 +173,31 @@ unsigned char Keypad_ALTgetKey()
 
     Keypad_busEnable();
 
-        // Start Row Scaning
-    for (unsigned char row=1; row<=ROWS; row++)
+    KP_ROW1     = LOW;
+    KP_ROW2     = LOW;
+    KP_ROW3     = LOW;
+    KP_ROW4     = LOW;
+    
+    if (KP_COL1==1 && KP_COL2==1 && KP_COL3==1 && KP_COL4==1)
     {
-        Select_ROW(row);
-        Key = findKey_inRow(row);
-        if (Key)
-            break;          // Break the scan if any Key found
+        return Key;
     }
+    else
+    {
+            // Start Row Scaning
+        for (unsigned char row=1; row<=ROWS; row++)
+        {
+            Select_ROW(row);
+            Key = findKey_inRow(row);
+            if (Key)
+                break;          // Break the scan if any Key found
+        }
 
-    LCD_busEnable();
+        LCD_busEnable();
 
-    __delay_ms(KEYHOLD_DELAY);  //Apply a Typematic/Hold delay
-    return Key;
+        __delay_ms(KEYHOLD_DELAY);  //Apply a Typematic/Hold delay
+        return Key;
+    }
 }
 
 /*******************************************************************************
@@ -324,24 +336,30 @@ unsigned char Keypad_waitForKey(void)
 unsigned char Keypad_getKey()
 {
     unsigned char Key = 0;
-
-    // Start Row Scaning
-    for (unsigned char row=1; row<=ROWS; row++)
+    if (KP_COL1==1 && KP_COL2==1 && KP_COL3==1 && KP_COL4==1)
     {
-        Select_ROW(row);
-        Key = findKey_inRow(row);
-        if (Key)
-            break;          // Break the scan if any Key found
+        return Key;
     }
+    else
+    {
+        // Start Row Scaning
+        for (unsigned char row=1; row<=ROWS; row++)
+        {
+            Select_ROW(row);
+            Key = findKey_inRow(row);
+            if (Key)
+                break;          // Break the scan if any Key found
+        }
 
-    // Back to normal
-    KP_ROW1     = LOW;
-    KP_ROW2     = LOW;
-    KP_ROW3     = LOW;
-    KP_ROW4     = LOW;
+        // Back to normal
+        KP_ROW1     = LOW;
+        KP_ROW2     = LOW;
+        KP_ROW3     = LOW;
+        KP_ROW4     = LOW;
 
-    __delay_ms(KEYHOLD_DELAY);  //Apply a Typematic/Hold delay
-    return Key;
+        __delay_ms(KEYHOLD_DELAY);  //Apply a Typematic/Hold delay
+        return Key;
+    }
 }
 
 /*******************************************************************************
